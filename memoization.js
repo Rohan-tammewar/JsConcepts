@@ -16,14 +16,12 @@ factorial accepts a single integer n and returns 1 if n <= 1 or factorial(n - 1)
 
 function memoize(fn) {
   const cache = new Map()
-  return function () {
-    let a = arguments[0]
-    let b = arguments[1]
-    let key = (a << b) | (b ?? 0)
+  return function (...args) {
+    let key = `${args}`
     if (cache.has(key)) {
       return cache.get(key)
     }
-    let value = fn(a, b)
+    let value = fn(...args)
     cache.set(key, value)
     return value
   }
